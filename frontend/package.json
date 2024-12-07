@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.7.9",
     "elearning-web": "file:",
     "flowbite": "^2.5.1",
     "flowbite-react": "^0.10.1",
@@ -25,6 +26,7 @@
     "react-slick": "^0.30.2",
     "react-tooltip": "^5.28.0",
     "slick-carousel": "^1.8.1",
+    "stream-http": "^3.2.0",
     "swiper": "^11.1.14",
     "web-vitals": "^2.1.4"
   },
