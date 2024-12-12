@@ -9,11 +9,11 @@ const ResetPasswordConfirmationPage = () => {
   const [verificationCode, setVerificationCode] = useState("");
   const navigate = useNavigate();
 
-  /* this is the use when we use axios to connect backend
+  //this is the use when we use axios to connect backend
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/auth/reset-password-confirmation", {
+      const response = await api.post("/account/reset-password-confirmation", {
         verificationCode,
         newPassword,
       });
@@ -23,20 +23,21 @@ const ResetPasswordConfirmationPage = () => {
       console.error("Password reset failed:", error.response.data);
     }
   };
-  */
 
+  /*
   const handleBackToLogin = () => {
     // this is the use when we don't use axios to connect backend
     navigate("/login");
   };
+  */
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle verification code submission logic here
-    console.log("Verification code submitted:", verificationCode);
-    // Redirect to login page after successful verification
-    navigate("/login");
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // Handle verification code submission logic here
+  //   console.log("Verification code submitted:", verificationCode);
+  //   // Redirect to login page after successful verification
+  //   navigate("/login");
+  // };
 
   return (
     <div className="max-w-md mx-auto mt-12 text-center">

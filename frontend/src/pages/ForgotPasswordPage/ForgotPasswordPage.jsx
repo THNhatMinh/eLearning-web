@@ -11,19 +11,22 @@ const ForgotPasswordPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  /* this is the use when we use axios to connect backend
+  // this is the use when we use axios to connect backend
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/auth/reset-password", { email, newPassword });
+      const response = await axios.post("/account/reset-password", {
+        email,
+        newPassword,
+      });
       console.log("Password reset successful:", response.data);
       navigate("/reset-password-confirmation");
     } catch (error) {
       console.error("Password reset failed:", error.response.data);
     }
   };
-  */
 
+  /*
   const handleSubmit = (e) => {
     // this is the use when we don't use axios to connect backend
     e.preventDefault();
@@ -33,7 +36,7 @@ const ForgotPasswordPage = () => {
     console.log("Confirm Password:", confirmPassword);
     navigate("/reset-password-confirmation"); // Redirect to reset password confirmation page after submission
   };
-
+*/
   return (
     <div className="max-w-md mx-auto mt-12">
       <h1 className="text-2xl font-bold mb-4">{t("Quên mật khẩu")}</h1>

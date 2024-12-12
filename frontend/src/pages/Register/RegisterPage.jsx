@@ -6,7 +6,7 @@ import axios from "../../api/axios";
 const RegisterPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  /* to use axios to connect backend
+  /* to use axios to connect backend*/
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +14,11 @@ const RegisterPage = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/auth/register", { name, email, password });
+      const response = await axios.post("/account/register", {
+        name,
+        email,
+        password,
+      });
       console.log("Registration successful:", response.data);
       // Save the token and navigate to the dashboard or home page
       navigate("/");
@@ -22,7 +26,6 @@ const RegisterPage = () => {
       console.error("Registration failed:", error.response.data);
     }
   };
-  */
 
   const handleRegisterLogin = () => {
     // no use when  we use axios to connect backend instead
