@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ButtonComponent } from "../../components/ButtonComponent/ButtonComponent";
 import { useNavigate } from "react-router-dom";
+import axios from "../../api/axios";
 
 const ForgotPasswordPage = () => {
   const { t } = useTranslation();
@@ -10,7 +11,21 @@ const ForgotPasswordPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
+  /* this is the use when we use axios to connect backend
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/auth/reset-password", { email, newPassword });
+      console.log("Password reset successful:", response.data);
+      navigate("/reset-password-confirmation");
+    } catch (error) {
+      console.error("Password reset failed:", error.response.data);
+    }
+  };
+  */
+
   const handleSubmit = (e) => {
+    // this is the use when we don't use axios to connect backend
     e.preventDefault();
     // Handle password reset logic here
     console.log("Password reset link sent to:", email);

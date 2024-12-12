@@ -2,11 +2,30 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { ButtonComponent } from "../../components/ButtonComponent/ButtonComponent";
 import { useNavigate } from "react-router-dom";
+import axios from "../../api/axios";
 const RegisterPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  /* to use axios to connect backend
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/auth/register", { name, email, password });
+      console.log("Registration successful:", response.data);
+      // Save the token and navigate to the dashboard or home page
+      navigate("/");
+    } catch (error) {
+      console.error("Registration failed:", error.response.data);
+    }
+  };
+  */
 
   const handleRegisterLogin = () => {
+    // no use when  we use axios to connect backend instead
     navigate("/login");
   };
   return (
@@ -88,7 +107,7 @@ const RegisterPage = () => {
             <div className="border-b-[1px] border-[#d1d7dc]">
               <ButtonComponent
                 link={t("Đăng nhập")}
-                text={t("Bạn không có tài khoản?")}
+                text={t("You already have an account?")}
                 notHover={true}
                 colorBg={"third"}
                 colorBoder={"white"}

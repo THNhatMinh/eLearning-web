@@ -2,9 +2,26 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { ButtonComponent } from "../../components/ButtonComponent/ButtonComponent";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "../../api/axios";
 const LoginPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  /* // this is the use when we use axios to connect backend
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/auth/login", { email, password });
+      console.log("Login successful:", response.data);
+      // Save the token and navigate 
+      navigate("/");
+    } catch (error) {
+      console.error("Login failed:", error.response.data);
+    }
+  };
+  */
 
   const handleRegisterNavigate = () => {
     navigate("/register");

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import classNames from "classnames";
 
 export const ButtonComponent = ({
   listCourses,
@@ -10,59 +11,65 @@ export const ButtonComponent = ({
   text,
   img,
   icon,
-  textColor,
-  colorBoder,
+  textColor = "black",
+  colorBoder = "first",
   colorBg,
   bold,
-  padding,
+  padding = 4,
   hover,
-  height,
+  height = "h-10",
   fullScreen,
   width,
   colorHover,
   notHover,
   cursor,
   rounder,
-  onClick, // Add onClick prop
-  onMouseEnter, // Add onMouseEnter prop
+  onClick,
+  onMouseEnter,
 }) => {
+  const buttonClasses = classNames(
+    "flex items-center justify-center border",
+    fullScreen && "w-full",
+    colorBg && `bg-${colorBg}`,
+    cursor || "",
+    width || "",
+    bold && "font-bold",
+    rounder && "rounded-full",
+    `border-${colorBoder}`,
+    `text-${textColor}`,
+    `px-${padding}`,
+    height,
+    {
+      "hover:bg-[#1739531f]": !notHover && !colorHover && hover,
+      [`hover:bg-${colorHover}`]: colorHover,
+      "hover:bg-[#3e4143]": !notHover && !colorHover && !hover,
+    }
+  );
+
   return (
     <button
       onClick={
-        onClick || (listCourses && AddCart ? () => AddCart(listCourses) : null)
-      } // Use onClick prop if provided
-      onMouseEnter={onMouseEnter} // Use onMouseEnter prop if provided
-      className={`${fullScreen ? `w-full` : ""} ${
-        colorBg ? `bg-${colorBg}` : ""
-      } ${cursor ? cursor : ""} ${
-        width ? width : ""
-      } flex items-center justify-center border ${bold ? `font-bold` : ""} ${
-        rounder ? `rounded-full` : ""
-      } ${colorBoder ? `border-${colorBoder}` : "border-first"} ${
-        textColor ? `text-${textColor}` : "text-black"
-      } ${padding ? `px-${padding}` : "px-4"} ${height ? height : "h-10"} ${
-        notHover
-          ? ``
-          : colorHover
-          ? `hover:bg-${colorHover}`
-          : hover
-          ? "hover:bg-[#1739531f]"
-          : "hover:bg-[#3e4143]"
-      }`}
+        onClick ??
+        (listCourses && AddCart ? () => AddCart(listCourses) : undefined)
+      }
+      onMouseEnter={
+        typeof onMouseEnter === "function" ? onMouseEnter : undefined
+      }
+      className={buttonClasses}
     >
-      {icon}
-      {img && <img className="max-w-6 " src={img} alt="" />}
-      <span className="tablet:text-base">{text ? text : ""}</span>
+      {icon && <>{icon}</>}
+      {img && <img className="max-w-6" src={img} alt="" />}
+      {text && <span className="tablet:text-base">{text}</span>}
+
       {link && (
         <Link
-          className={`${textColor ? `text-${textColor}` : ""} ${
-            underline ? "" : "underline"
-          } decoration-1 underline-offset-4 font-bold text-eighth ${
-            notHover ? "" : "hover:text-sixth"
-          }`}
-          to={address ? address : ""}
+          className={classNames(
+            underline ? "" : "underline",
+            `decoration-1 underline-offset-4 font-bold text-eighth`,
+            !notHover && "hover:text-sixth"
+          )}
+          to={address || ""}
         >
-          {" "}
           {link}
         </Link>
       )}
