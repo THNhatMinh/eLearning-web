@@ -1,3 +1,71 @@
+// src/Courses.js
+import React, { useState } from "react";
+import SettingsTab from "./SettingsTab";
+import CourseContentTab from "./CourseContentTab";
+import PricingTab from "./PricingTab";
+
+const CourseCreate = () => {
+  const [activeTab, setActiveTab] = useState("settings");
+
+  const renderActiveTab = () => {
+    switch (activeTab) {
+      case "settings":
+        return <SettingsTab />;
+      case "courseContent":
+        return <CourseContentTab />;
+      case "pricing":
+        return <PricingTab />;
+      default:
+        return <SettingsTab />;
+    }
+  };
+
+  return (
+    <div className="max-w-[800px] mx-auto py-12">
+      <h1 className="text-center text-2xl font-bold mb-8">
+        Create a New Course
+      </h1>
+
+      {/* Tab Navigation */}
+      <div className="flex justify-center mb-6">
+        <button
+          className={`p-3 ${
+            activeTab === "settings" ? "bg-blue-500 text-white" : "bg-gray-200"
+          } rounded-l`}
+          onClick={() => setActiveTab("settings")}
+        >
+          Settings
+        </button>
+        <button
+          className={`p-3 ${
+            activeTab === "courseContent"
+              ? "bg-blue-500 text-white"
+              : "bg-gray-200"
+          }`}
+          onClick={() => setActiveTab("courseContent")}
+        >
+          Course Content
+        </button>
+        <button
+          className={`p-3 ${
+            activeTab === "pricing" ? "bg-blue-500 text-white" : "bg-gray-200"
+          } rounded-r`}
+          onClick={() => setActiveTab("pricing")}
+        >
+          Pricing
+        </button>
+      </div>
+
+      {/* Active Tab Content */}
+      <div className="p-6 border rounded bg-white shadow-sm">
+        {renderActiveTab()}
+      </div>
+    </div>
+  );
+};
+
+export default CourseCreate;
+/*
 import React, { useState } from "react";
 
 const CourseCreate = () => {
@@ -45,7 +113,8 @@ const CourseCreate = () => {
         Create a New Course
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-        {/* Course Name */}
+        {/* Course Name }
+        
         <input
           type="text"
           placeholder="Course Title"
@@ -55,7 +124,7 @@ const CourseCreate = () => {
           required
         />
 
-        {/* Course Description */}
+        {/* Course Description }
         <textarea
           placeholder="Course Description"
           value={description}
@@ -65,7 +134,7 @@ const CourseCreate = () => {
           required
         ></textarea>
 
-        {/* Course Category */}
+        {/* Course Category }
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
@@ -81,7 +150,7 @@ const CourseCreate = () => {
           <option value="marketing">Marketing</option>
         </select>
 
-        {/* Course Price */}
+        {/* Course Price }
         <input
           type="number"
           placeholder="Course Price (USD)"
@@ -92,7 +161,7 @@ const CourseCreate = () => {
           required
         />
 
-        {/* Image Upload */}
+        {/* Image Upload }
         <div>
           <label className="block mb-2 font-medium">Upload Cover Image:</label>
           <input
@@ -104,7 +173,7 @@ const CourseCreate = () => {
           />
         </div>
 
-        {/* Video Upload */}
+        {/* Video Upload }
         <div>
           <label className="block mb-2 font-medium">Upload Intro Video:</label>
           <input
@@ -116,7 +185,7 @@ const CourseCreate = () => {
           />
         </div>
 
-        {/* Submit Button */}
+        {/* Submit Button }
         <button
           type="submit"
           className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600"
@@ -129,3 +198,4 @@ const CourseCreate = () => {
 };
 
 export default CourseCreate;
+*/

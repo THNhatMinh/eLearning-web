@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ButtonComponent } from "../../components/ButtonComponent/ButtonComponent";
 import { Link, useNavigate } from "react-router-dom";
@@ -35,44 +35,51 @@ const LoginPage = () => {
           <h1 className="font-sans">
             {t("Đăng nhập vào tài khoản Study24 của bạn")}
           </h1>
-          <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="email"
-              className="block p-4 pt-6  w-full bg-transparent border-[1px] appearance-none focus:outline-none focus:ring-0 peer"
-              placeholder=" "
-              required
-            />
-            <label
-              htmlFor="floating_email"
-              className="peer-focus:font-bold absolute font-bold duration-300 transform -translate-y-6 scale-75 top-5 left-4 -z-10 origin-[0] peer-focus:start-4  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
-            >
-              {t("Email address")}
-            </label>
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="password"
-              className="block p-4 pt-6  w-full bg-transparent border-[1px] appearance-none focus:outline-none focus:ring-0 peer"
-              placeholder=" "
-              required
-            />
-            <label
-              htmlFor="floating_password"
-              className="peer-focus:font-bold absolute font-bold duration-300 transform -translate-y-6 scale-75 top-5 left-4 -z-10 origin-[0] peer-focus:start-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
-            >
-              {t("Password")}
-            </label>
-          </div>
-          <div>
-            <ButtonComponent
-              padding={3}
-              text={t("Đăng nhập")}
-              hover={true}
-              bold={true}
-              fullScreen={true}
-              height={"h-12"}
-            />
-          </div>
+          <form onSubmit={handleLogin}>
+            <div className="relative z-0 w-full mb-5 group">
+              <input
+                type="email"
+                className="block p-4 pt-6  w-full bg-transparent border-[1px] appearance-none focus:outline-none focus:ring-0 peer"
+                placeholder=" "
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <label
+                htmlFor="floating_email"
+                className="peer-focus:font-bold absolute font-bold duration-300 transform -translate-y-6 scale-75 top-5 left-4 -z-10 origin-[0] peer-focus:start-4  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              >
+                {t("Email address")}
+              </label>
+            </div>
+            <div className="relative z-0 w-full mb-5 group">
+              <input
+                type="password"
+                className="block p-4 pt-6  w-full bg-transparent border-[1px] appearance-none focus:outline-none focus:ring-0 peer"
+                placeholder=" "
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <label
+                htmlFor="floating_password"
+                className="peer-focus:font-bold absolute font-bold duration-300 transform -translate-y-6 scale-75 top-5 left-4 -z-10 origin-[0] peer-focus:start-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              >
+                {t("Password")}
+              </label>
+            </div>
+
+            <div>
+              <ButtonComponent
+                padding={3}
+                text={t("Đăng nhập")}
+                hover={true}
+                bold={true}
+                fullScreen={true}
+                height={"h-12"}
+              />
+            </div>
+          </form>
           <div className="text-base text-center mt-6 mb-4">
             <span>{t("Hoặc")} </span>
             <Link

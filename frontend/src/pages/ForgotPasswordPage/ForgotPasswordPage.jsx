@@ -18,27 +18,21 @@ const ForgotPasswordPage = () => {
       const response = await axios.post("/account/reset-password", {
         email,
         newPassword,
+        confirmPassword,
       });
       console.log("Password reset successful:", response.data);
       navigate("/reset-password-confirmation");
     } catch (error) {
-      console.error("Password reset failed:", error.response.data);
+      if (error.response) {
+        console.error("Password reset failed:", error.response.data);
+      } else {
+        console.error("Password reset failed:", error.message);
+      }
     }
   };
 
-  /*
-  const handleSubmit = (e) => {
-    // this is the use when we don't use axios to connect backend
-    e.preventDefault();
-    // Handle password reset logic here
-    console.log("Password reset link sent to:", email);
-    console.log("New Password:", newPassword);
-    console.log("Confirm Password:", confirmPassword);
-    navigate("/reset-password-confirmation"); // Redirect to reset password confirmation page after submission
-  };
-*/
   return (
-    <div className="max-w-md mx-auto mt-12">
+    <div className="max-w-md mx-auto mt-12 text-center">
       <h1 className="text-2xl font-bold mb-4">{t("Quên mật khẩu")}</h1>
       <form onSubmit={handleSubmit} className="mb-8">
         <div className="relative z-0 w-full mb-6 group">
