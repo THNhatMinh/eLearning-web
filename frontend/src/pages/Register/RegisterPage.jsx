@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 import { ButtonComponent } from "../../components/ButtonComponent/ButtonComponent";
 import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
+import { LogInUser } from "../../redux/authSlice";
 const RegisterPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -10,7 +12,13 @@ const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const [isChecked, setIsChecked] = useState(false);
 
+  // Handle checkbox change
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked); // Toggle the checkbox state
+  };
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
@@ -20,6 +28,7 @@ const RegisterPage = () => {
         password,
       });
       console.log("Registration successful:", response.data);
+      dispatch(LogInUser(email));
       // Save the token and navigate to the dashboard or home page
       navigate("/");
     } catch (error) {
@@ -41,7 +50,7 @@ const RegisterPage = () => {
           <h1 className="font-sans">
             {t("Đăng kỳ vào tài khoản Study24 của bạn")}
           </h1>
-          <form onSubmit={handleRegister}>
+          <form onSubmit={handleRegister} >
             <div className="relative z-0 w-full mb-5 group">
               <input
                 type="text"
@@ -98,12 +107,13 @@ const RegisterPage = () => {
                 bold={true}
                 fullScreen={true}
                 height={"h-12"}
+                checked={isChecked}
               />
             </div>
           </form>
           <div className="flex justify-center gap-4 mt-6 mb-16">
             <span>
-              <input type="checkbox" />
+              <input type="checkbox" onChange={handleCheckboxChange}/>
             </span>
             <span>
               Bằng việc đăng ký, bạn đồng ý với{" "}

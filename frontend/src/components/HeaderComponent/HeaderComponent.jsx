@@ -6,10 +6,14 @@ import { DropDownMenu } from "../DropDownMenu/DropDownMenu";
 import { useTranslation } from "react-i18next";
 import { ModelChoiceLanguage } from "../Models/ModelChoiceLanguage";
 import { BoxContent } from "../BoxContent/BoxContent";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import catData from "../../components/HeaderComponent/catData";
+import { DeleteEmail, LogOutUser } from "../../redux/authSlice";
 
 const HeaderComponent = ({ isOpenMoDel, setIsOpenModel }) => {
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const listCart = useSelector((state) => state.cart.data) || [];
@@ -35,7 +39,21 @@ const HeaderComponent = ({ isOpenMoDel, setIsOpenModel }) => {
   const handleMouseLeave = () => {
     setIsHovered("");
   };
+  const handleLogOutClick = () => {
+    setIsModalOpen(true);
+  };
 
+  // Handle confirming the log out
+  const handleConfirmLogOut = () => {
+    dispatch(DeleteEmail());
+    dispatch(LogOutUser());
+    setIsModalOpen(false);  // Close the modal after logging out
+  };
+
+  // Handle cancelling the log out
+  const handleCancelLogOut = () => {
+    setIsModalOpen(false);  // Just close the modal
+  };
   useEffect(() => {
     fetchCategories();
     if (isOpen || isOpenMoDel) {
@@ -86,16 +104,14 @@ const HeaderComponent = ({ isOpenMoDel, setIsOpenModel }) => {
         onMouseLeave={() => handleMouseLeave()}
       >
         <li
-          className={`cursor-pointer ${
-            isHovered === t("Thể loại") ? "text-eighth" : ""
-          }`}
+          className={`cursor-pointer ${isHovered === t("Thể loại") ? "text-eighth" : ""
+            }`}
         >
           {t("Thể loại")}
         </li>
         <div
-          className={`${
-            isHovered === t("Thể loại") ? "block" : "hidden"
-          } absolute top-full z-10 `}
+          className={`${isHovered === t("Thể loại") ? "block" : "hidden"
+            } absolute top-full z-10 `}
         >
           <DropDownMenu categories={categories} />
         </div>
@@ -135,9 +151,8 @@ const HeaderComponent = ({ isOpenMoDel, setIsOpenModel }) => {
           {t("Study24")}
         </Link>
         <div
-          className={`absolute top-full z-50 right-0 ${
-            isHovered === t("Study24") ? "block" : "hidden"
-          }`}
+          className={`absolute top-full z-50 right-0 ${isHovered === t("Study24") ? "block" : "hidden"
+            }`}
         >
           <div className="w-72 mt-1">
             <BoxContent
@@ -160,9 +175,8 @@ const HeaderComponent = ({ isOpenMoDel, setIsOpenModel }) => {
           {t("Giảng dạy trên Study24")}
         </Link>
         <div
-          className={`absolute top-full z-50 right-0 ${
-            isHovered === t("Giảng dạy trên Study24") ? "block" : "hidden"
-          }`}
+          className={`absolute top-full z-50 right-0 ${isHovered === t("Giảng dạy trên Study24") ? "block" : "hidden"
+            }`}
         >
           <div className="w-72 mt-1">
             <BoxContent
@@ -236,23 +250,49 @@ const HeaderComponent = ({ isOpenMoDel, setIsOpenModel }) => {
                 </div> */}
         </div>
       </div>
-      <Link to="/login" className="ml-2 tabletXs:hidden">
-        <ButtonComponent
-          padding={3}
-          text={t("Đăng nhập")}
-          hover={true}
-          bold={true}
-        />
-      </Link>
-      <Link to="/register" className="ml-2 tabletXs:hidden">
-        <ButtonComponent
-          padding={3}
-          text={t("Đăng ký")}
-          bold={true}
-          textColor={"white"}
-          colorBg={"first"}
-        />
-      </Link>
+      {!isLoggedIn ? (
+        <>
+          <Link to="/login" className="ml-2 tabletXs:hidden">
+            <ButtonComponent
+              padding={3}
+              text={t("Đăng nhập")}
+              hover={true}
+              bold={true}
+            />
+          </Link>
+          <Link to="/register" className="ml-2 tabletXs:hidden">
+            <ButtonComponent
+              padding={3}
+              text={t("Đăng ký")}
+              bold={true}
+              textColor={"white"}
+              colorBg={"first"}
+            />
+          </Link>
+        </>
+      )
+        :
+        (<button
+          onClick={handleLogOutClick} // Function to handle sign-out
+          className="ml-2 flex items-center tabletXs:hidden"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-5 h-5 mr-1"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-9A2.25 2.25 0 002.25 5.25v13.5A2.25 2.25 0 004.5 21h9a2.25 2.25 0 002.25-2.25V15M9 12h12m0 0l-3-3m3 3l-3 3"
+            />
+          </svg>
+          {t("Log Out")} {/* Translated text for "Sign out" */}
+        </button>)
+      }
 
       <li
         onClick={() => setIsOpenModel(true)}
@@ -273,7 +313,30 @@ const HeaderComponent = ({ isOpenMoDel, setIsOpenModel }) => {
           />
         </svg>
       </li>
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-md shadow-lg w-96">
+            <h3 className="text-lg font-semibold">{t("Are you sure you want to log out?")}</h3>
+            <div className="mt-4 flex justify-end">
+              <button
+                onClick={handleCancelLogOut}
+                className="mr-2 px-4 py-2 bg-gray-300 rounded-md"
+              >
+                {t("Cancel")}
+              </button>
+              <button
+                onClick={handleConfirmLogOut}
+                className="px-4 py-2 bg-red-600 text-white rounded-md"
+              >
+                {t("Log out")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
+
   );
 };
 

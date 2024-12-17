@@ -14,6 +14,7 @@ import MyListsPage from "../pages/MyLearningPage/Mylist";
 import WishlistPage from "../pages/MyLearningPage/Wishlist";
 import ArchivedPage from "../pages/MyLearningPage/Archived";
 import LearningToolsPage from "../pages/MyLearningPage/LearningTool";
+import ResetPasswordVerificationPage from "../pages/VerificationPage/VerificationPage";
 export const routes = [
   {
     path: "/",
@@ -26,6 +27,7 @@ export const routes = [
         path: "reset-password-confirmation",
         element: <ResetPasswordConfirmationPage />,
       },
+      {path: "reset-password-verification", element: <ResetPasswordVerificationPage/>},
       { path: "register", element: <RegisterPage /> },
       { path: "teacher", element: <TeacherPage /> },
       { path: "teacher/coursecreate", element: <CourseCreate /> },

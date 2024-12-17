@@ -3,18 +3,21 @@ import { useTranslation } from "react-i18next";
 import { ButtonComponent } from "../../components/ButtonComponent/ButtonComponent";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
+import { useDispatch } from "react-redux";
+import { LogInUser } from "../../redux/authSlice";
 const LoginPage = () => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   // this is the use when we use axios to connect backend
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post("/account/login", { email, password });
       console.log("Login successful:", response.data);
+      dispatch(LogInUser(email));
       // Save the token and navigate
       navigate("/");
     } catch (error) {

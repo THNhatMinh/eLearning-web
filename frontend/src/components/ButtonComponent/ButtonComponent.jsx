@@ -26,6 +26,7 @@ export const ButtonComponent = ({
   rounder,
   onClick,
   onMouseEnter,
+  checked
 }) => {
   const buttonClasses = classNames(
     "flex items-center justify-center border",
@@ -56,6 +57,7 @@ export const ButtonComponent = ({
         typeof onMouseEnter === "function" ? onMouseEnter : undefined
       }
       className={buttonClasses}
+      disabled={checked}
     >
       {icon && <>{icon}</>}
       {img && <img className="max-w-6" src={img} alt="" />}

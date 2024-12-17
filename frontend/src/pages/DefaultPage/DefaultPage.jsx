@@ -5,8 +5,9 @@ import HeaderComponent from '../../components/HeaderComponent/HeaderComponent'
 
 const DefaultPage = () => {
   const [isOpenMoDel, setIsOpenModel] = useState(false);
+  // const [isLogin, setIsLogin] = useState("false");
   return (
-    <div>
+     <div className="flex flex-col min-h-screen">
       <HeaderComponent isOpenMoDel={isOpenMoDel} setIsOpenModel={setIsOpenModel}/>
       <Outlet/>
       <FooterComponent setIsOpenModel={setIsOpenModel}/>
