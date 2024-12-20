@@ -14,7 +14,11 @@ import MyListsPage from "../pages/MyLearningPage/Mylist";
 import WishlistPage from "../pages/MyLearningPage/Wishlist";
 import ArchivedPage from "../pages/MyLearningPage/Archived";
 import LearningToolsPage from "../pages/MyLearningPage/LearningTool";
+<<<<<<< Updated upstream
 import ResetPasswordVerificationPage from "../pages/VerificationPage/VerificationPage";
+=======
+import PreviewPage from "../pages/PreviewPage/PreviewPage";
+>>>>>>> Stashed changes
 export const routes = [
   {
     path: "/",
@@ -38,6 +42,7 @@ export const routes = [
       { path: "wishlist", element: <WishlistPage /> },
       { path: "archived", element: <ArchivedPage /> },
       { path: "learning-tools", element: <LearningToolsPage /> },
+      { path: "preview-lesson", element: <PreviewPage /> }
     ],
   },
   { path: "/account", element: <AccountPage /> },

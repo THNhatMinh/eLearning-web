@@ -27,32 +27,39 @@ const CourseCreate = () => {
       </h1>
 
       {/* Tab Navigation */}
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-between items-center mb-6">
+        <div className="flex">
+          <button
+            className={`p-3 ${activeTab === "settings" ? "bg-blue-500 text-white" : "bg-gray-200"
+              } rounded-l`}
+            onClick={() => setActiveTab("settings")}
+          >
+            Settings
+          </button>
+          <button
+            className={`p-3 ${activeTab === "courseContent"
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200"
+              }`}
+            onClick={() => setActiveTab("courseContent")}
+          >
+            Course Content
+          </button>
+          <button
+            className={`p-3 ${activeTab === "pricing" ? "bg-blue-500 text-white" : "bg-gray-200"
+              } rounded-r`}
+            onClick={() => setActiveTab("pricing")}
+          >
+            Pricing
+          </button>
+        </div>
+
+        {/* Preview Button */}
         <button
-          className={`p-3 ${
-            activeTab === "settings" ? "bg-blue-500 text-white" : "bg-gray-200"
-          } rounded-l`}
-          onClick={() => setActiveTab("settings")}
+          className="p-3 bg-green-500 text-white rounded hover:bg-green-600"
+          onClick={() => alert("Previewing Course")}
         >
-          Settings
-        </button>
-        <button
-          className={`p-3 ${
-            activeTab === "courseContent"
-              ? "bg-blue-500 text-white"
-              : "bg-gray-200"
-          }`}
-          onClick={() => setActiveTab("courseContent")}
-        >
-          Course Content
-        </button>
-        <button
-          className={`p-3 ${
-            activeTab === "pricing" ? "bg-blue-500 text-white" : "bg-gray-200"
-          } rounded-r`}
-          onClick={() => setActiveTab("pricing")}
-        >
-          Pricing
+          Preview
         </button>
       </div>
 

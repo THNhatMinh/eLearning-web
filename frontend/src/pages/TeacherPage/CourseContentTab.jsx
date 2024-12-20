@@ -96,16 +96,26 @@ const CourseContentTab = () => {
 
     setChapters(items);
   };
-
+  const saveCourseData = () => {
+    console.log("Exported Course Data:", JSON.stringify(chapters, null, 2));
+  };
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">Course Content</h2>
-      <button
-        onClick={() => setIsChapterModalOpen(true)}
-        className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-      >
-        Add Chapter
-      </button>
+      <div className="flex gap-4 mb-4">
+        <button
+          onClick={() => setIsChapterModalOpen(true)}
+          className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Add Chapter
+        </button>
+        <button
+          onClick={saveCourseData}
+          className="p-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+        >
+          Show Chapters
+        </button>
+      </div>
 
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="chapters" type="chapter">
